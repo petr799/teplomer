@@ -45,7 +45,7 @@ try:
 # inicializace promenne teplota
 	teplota = {}
 
-# smycka pro vycitani teplot z cidel do promenne teplota
+# smycka pro vycitani teplot z dalas cidel do promenne teplota
 	for x in range (0, count_room[0]):
 		base_dir = '/sys/bus/w1/devices/'
 		device_folder = glob.glob(base_dir + "%s" % id_cidla[x])[0]
