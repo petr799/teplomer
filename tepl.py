@@ -42,8 +42,8 @@ try:
 	cursor.execute("SELECT COUNT(id) FROM provoz")
 	count_room = cursor.fetchone()
 
-# inicializace promenne teplota
-	teplota = {}
+# inicializace promenne teplota, je nutné přidat další části proměnné do inicializace podle počtu měřených čidel
+	teplota = {0: 0, 1: 0, 2: 0, 3: 0}
 
 # smycka pro vycitani teplot z cidel do promenne teplota
 	for x in range (0, count_room[0]):
@@ -51,12 +51,9 @@ try:
 		device_folder = glob.glob(base_dir + "%s" % id_cidla[x])[0]
 		device_file = device_folder + '/w1_slave'
 		teplota[x] = (read_temp())
-#		slovo = 'teplota' + x[0]
-#		print slovo
-#		print teplota[x]
-	print teplota
 
-#	cursor.execute("""INSERT INTO tme (kdy, room1, room2) VALUES (%s, %s, %s)""",(datetime.datetime.now(), teplota[0], teplota[1]
+# Spuštění SQL dotazu, nutné upravit počet místností ve kterých měříme teplotu
+	cursor.execute("""INSERT INTO tme (kdy, teplota, room1, room2, room3) VALUES (%s, %s, %s, %s, %s)""",(datetime.datetime.now(), teplota[0], teplota[1], teplota[2], teplota[3]))
 	# Execute the SQL command
 #	cursor.execute("""INSERT INTO tme (kdy, teplota) VALUES (%s, %s)""",(datetime.datetime.now(), (read_temp())))
 
